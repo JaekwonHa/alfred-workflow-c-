@@ -1,0 +1,11 @@
+---
+Language:        Cpp
+Encoding:        UTF-8
+Newline:         LF
+InsertFinalNewline: true
+
+IndentWidth:     4
+UseTab:          Never
+
+ColumnLimit: 0
+---
