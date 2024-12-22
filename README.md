@@ -5,7 +5,11 @@ brew install cmake
 brew install autoconf automake autoconf-archive libtool
 
 ~/vcpkg/vcpkg x-update-baseline --add-initial-baseline
+```
 
+## vscode로 프로젝트 열기
+
+```bash
 cmake --list-presets
 cmake --preset release
 cmake --build --preset release-build
@@ -13,18 +17,13 @@ cmake --build --preset release-build
 ./bin/Release/open_project_in_vscode bin/Release/vscode_project
 ```
 
-## vscode로 프로젝트 열기
-
-로컬 경로 + 리모트 경로 둘다 지원
-
-파일 경로를 입력 받는다. 파일을 읽는다 -> 검색어와 매칭되는 프로젝트명이 있는지, 있는 것만 리스트로 뽑음. 필터 파이프라인 사용하면 될듯
--> 리스트를 json으로 출력
-coroutine 적용해보기?
-
-테스트 항목
-* 파일 경로를 입력했을때, 읽는 내용이 정확힌지
-* 파일 리스트가 있고 검색어를 줬을때, 필터링되는게 정확한지
-* 파일 리스트를 입력 받았을때, alfred output 형태로 스키마가 제대로 나오는지
+* [x] 프로젝트 세팅 (VSCode, cmake, vcpkg, ...)
+* [x] 파일 경로를 입력 받아서 출력
+* [ ] local, remote 경로를 구현하는 `Project` 인터페이스 구현체 추가
+* [ ] `isMatched` 함수 구현. 여러개의 검색어 가능
+* [ ] `print` 함수 구현. alfred workflow output(json) 형태로 출력
+* [ ] alfred worlfow 연동
+* [ ] coroutine 적용
 
 ## 복사하면 문자열에 따라서 특정 액션 수행
 

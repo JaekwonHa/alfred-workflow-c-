@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "open_project_in_vscode",
+            "type": "cppdbg",
+            "request": "launch",
+            "preLaunchTask": "cmake-build-debug",
+            "program": "${workspaceFolder}/bin/Debug/open_project_in_vscode",
+            "args": ["${workspaceFolder}/bin/Debug/vscode_project"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/bin/Debug",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": false
+                }
+            ]
+        }
+    ]
+}

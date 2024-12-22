@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+		{
+			"label": "cmake-build-debug",
+			"type": "shell",
+			"options": {
+			},
+			"command": "cmake",
+			"args": [
+				"--build",
+				"--preset",
+				"debug-build"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		}
+    ]
+}
