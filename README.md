@@ -1,4 +1,4 @@
-# alfred-workflow-c++
+# alfred-workflow-cpp
 
 ```bash
 brew install cmake

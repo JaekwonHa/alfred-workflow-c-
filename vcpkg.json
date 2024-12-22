@@ -1,5 +1,5 @@
 {
-    "name": "alfred-workflow",
+    "name": "alfred-workflow-cpp",
     "version": "0.0.1",
     "dependencies": [
         "boost"
