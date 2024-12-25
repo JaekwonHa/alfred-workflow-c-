@@ -12,18 +12,21 @@ auto Project::create(const std::string& serverName, const std::string& path) -> 
     }
 }
 
-auto Project::isMatched(const std::vector<std::string>& keywords) const -> bool {
+auto Project::getScore(const std::vector<std::string>& keywords) const -> int {
+    auto score = 0;
     for (const auto& keyword : keywords) {
-        if (boost::contains(projectName, keyword)) {
-            return true;
-        }
         if (boost::contains(serverName, keyword)) {
-            return true;
+            score += 3;
+            continue;
         }
         if (boost::contains(path, keyword)) {
-            return true;
+            score += 2;
+            continue;
+        }
+        if (boost::contains(projectName, keyword)) {
+            score += 1;
+            continue;
         }
     }
-
-    return false;
+    return score;
 }

@@ -12,7 +12,7 @@ public:
 
     static auto create(const std::string& serverName, const std::string& path) -> std::unique_ptr<Project>;
 
-    virtual auto isMatched(const std::vector<std::string>& keywords) const -> bool;
+    virtual auto getScore(const std::vector<std::string>& keywords) const -> int;
 
     const std::string projectName;
     const std::string serverName;

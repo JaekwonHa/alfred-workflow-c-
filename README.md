@@ -22,7 +22,8 @@ cmake --preset release && cmake --build --preset release-build
 * [ ] `isMatched` 함수 구현. 여러개의 검색어 가능
 * [x] alfred workflow output(json) 형태로 출력
 * [x] alfred worlfow 연동
-* [ ] 테스트 추가
+* [x] score, sort 추가. keywords가 가장 많이 매칭되는 순서
+* [x] ParameterizedTest 테스트 추가
 * [ ] coroutine 적용
 
 ## 복사하면 문자열에 따라서 특정 액션 수행

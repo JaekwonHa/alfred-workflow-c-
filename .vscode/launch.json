@@ -7,7 +7,7 @@
             "request": "launch",
             "preLaunchTask": "cmake-build-debug",
             "program": "${workspaceFolder}/bin/Debug/open_project_in_vscode",
-            "args": ["${workspaceFolder}/bin/Debug/vscode_project"],
+            "args": ["${workspaceFolder}/data/vscode_project", "local", "cpp"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/bin/Debug",
             "environment": [],

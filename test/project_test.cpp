@@ -1,18 +1,37 @@
 #include <gtest/gtest.h>
-#include "local_project.hpp"
-#include "remote_project.hpp"
 
-TEST(LocalProject, isMatched) {
-    auto project = LocalProject("local", "/Users/user/workspace/repo2/alfred-workflow-c++");
+#include "project.hpp"
 
-    EXPECT_TRUE(project.isMatched({"alfred", "workflow", "c++"}));
+struct TestCase {
+    std::string serverName;
+    std::string path;
+    std::vector<std::string> keywords;
+    int expectedScore;
+};
+
+class ProjectParameterizedTestFixture : public ::testing::TestWithParam<TestCase> {};
+
+TEST_P(ProjectParameterizedTestFixture, getScore) {
+    auto [serverName, path, keywords, expectedSocre] = GetParam();
+
+    auto project = Project::create(serverName, path);
+
+    auto result = project->getScore(keywords);
+
+    EXPECT_EQ(expectedSocre, result);
 }
 
-TEST(RemoteProject, isMatched) {
-    auto project = RemoteProject("remote", "/Users/user/workspace/repo2/alfred-workflow-c++");
-
-    EXPECT_TRUE(project.isMatched({"alfred", "workflow", "c++"}));
-}
+INSTANTIATE_TEST_SUITE_P(
+    ProjectTest,
+    ProjectParameterizedTestFixture,
+    ::testing::Values(
+        TestCase{"local", "/Users/user/workspace/repo2/alfred-workflow-c++", {"alfred", "workflow", "c++"}, 6},
+        TestCase{"local", "/Users/user/workspace/repo2/alfred-workflow-c++", {"local"}, 3},
+        TestCase{"local", "/Users/user/workspace/repo2/url-parser", {"alfred", "workflow", "c++"}, 0},
+        TestCase{"local", "/Users/user/workspace/repo2/alfred-workflow-c++", {"alfred", "local"}, 5},
+        TestCase{"remote", "/Users/user/workspace/repo2/alfred-workflow-c++", {"alfred", "local"}, 2}
+    )
+);
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

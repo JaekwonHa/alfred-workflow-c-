@@ -45,19 +45,24 @@ int main(int argc, char const *argv[]) {
     auto items = boost::json::array();
     int i = 0;
     for (const auto& project : projects) {
-        if (project->isMatched(keywords)) {
-            auto item = boost::json::object();
-            item["uid"] = std::format("{}", i);
-            item["title"] = project->projectName;
-            item["subtitle"] = std::format("open <{}> in <{}>", project->projectName, project->serverName);
-            item["arg"] = project->path;
-            auto icon = boost::json::object();
-            icon["path"] = std::format("{}/{}", dirPath.string(), "vscode_icon.png");
-            item["icon"] = icon;
+        int score = project->getScore(keywords);
+        if (score <= 0) continue;
 
-            items.push_back(item);
-        }
+        auto item = boost::json::object{
+            {"uid", std::format("{}", i)},
+            {"title", project->projectName},
+            {"subtitle", std::format("open <{}> in <{}>", project->projectName, project->serverName)},
+            {"arg", project->path},
+            {"icon", boost::json::object{{"path", std::format("{}/{}", dirPath.string(), "vscode_icon.png")}}},
+            {"score", score}
+        };
+
+        items.push_back(item);
     }
+
+    std::sort(items.begin(), items.end(), [](const auto& a, const auto& b) {
+        return a.as_object().at("score").as_int64() < b.as_object().at("score").as_int64();
+    });
 
     auto item = boost::json::object();
     item["items"] = items;
