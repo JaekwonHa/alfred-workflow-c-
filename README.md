@@ -19,7 +19,7 @@ cmake --build --preset release-build
 
 * [x] 프로젝트 세팅 (VSCode, cmake, vcpkg, ...)
 * [x] 파일 경로를 입력 받아서 출력
-* [ ] local, remote 경로를 구현하는 `Project` 인터페이스 구현체 추가
+* [x] local, remote 경로를 구현하는 `Project` 인터페이스 구현체 추가
 * [ ] `isMatched` 함수 구현. 여러개의 검색어 가능
 * [ ] `print` 함수 구현. alfred workflow output(json) 형태로 출력
 * [ ] alfred worlfow 연동
