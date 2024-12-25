@@ -9,9 +9,9 @@ set(SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
 find_package(CompilerFlags REQUIRED MODULE)
 find_package(PublishPaths REQUIRED MODULE)
 
-find_package(Boost REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
-
+find_package(Boost REQUIRED COMPONENTS algorithm json)
+# find_package(Boost REQUIRED)
+# include_directories(${Boost_INCLUDE_DIRS})
 
 add_subdirectory(src)
 

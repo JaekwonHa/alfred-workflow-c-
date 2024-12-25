@@ -1,9 +1,9 @@
+#include <format>
+
 #include "remote_project.hpp"
 
-auto RemoteProject::isMatched(const std::vector<std::string>& keywords) const -> bool {
-    return true;
-}
-
-auto RemoteProject::print() const -> std::string {
-    throw std::runtime_error("Not implemented");
-}
+RemoteProject::RemoteProject(const std::string& serverName, const std::string& path) : Project(
+    path.substr(path.find_last_of('/') + 1),
+    serverName,
+    std::format("vscode-remote://ssh-remote+{}/{}", serverName, path)
+) {}

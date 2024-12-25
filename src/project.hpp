@@ -2,19 +2,19 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 class Project {
-protected:
-    std::string name;
-    std::string url;
-
 public:
     Project() = delete;
-    Project(const std::string& path) {
-        name = path.substr(path.find_last_of('/') + 1);
-        url = path;
-    }
+    Project(const std::string& projectName, const std::string& serverName, const std::string& path) : projectName(projectName), serverName(serverName), path(path) {}
+    ~Project() = default;
 
-    virtual auto isMatched(const std::vector<std::string>& keywords) const -> bool = 0;
-    virtual auto print() const -> std::string = 0;
+    static auto create(const std::string& serverName, const std::string& path) -> std::unique_ptr<Project>;
+
+    virtual auto isMatched(const std::vector<std::string>& keywords) const -> bool;
+
+    const std::string projectName;
+    const std::string serverName;
+    const std::string path;
 };

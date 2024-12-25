@@ -1,9 +1,7 @@
 #include "local_project.hpp"
 
-auto LocalProject::isMatched(const std::vector<std::string>& keywords) const -> bool {
-    return true;
-}
-
-auto LocalProject::print() const -> std::string {
-    throw std::runtime_error("Not implemented");
-}
+LocalProject::LocalProject(const std::string& serverName, const std::string& path) : Project(
+    path.substr(path.find_last_of('/') + 1),
+    serverName,
+    path
+) {}

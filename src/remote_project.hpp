@@ -9,9 +9,5 @@
 
 class RemoteProject : public Project {
 public:
-    RemoteProject(const std::string& path) : Project(path) {}
-
-    auto isMatched(const std::vector<std::string>& keywords) const -> bool override;
-
-    auto print() const -> std::string override;
+    RemoteProject(const std::string& serverName, const std::string& path);
 };

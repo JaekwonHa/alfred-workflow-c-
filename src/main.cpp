@@ -8,10 +8,9 @@
 #include <memory>
 
 #include <boost/algorithm/string.hpp>
+#include <boost/json.hpp>
 
 #include "project.hpp"
-#include "local_project.hpp"
-#include "remote_project.hpp"
 
 int main(int argc, char const *argv[]) {
     if (argc < 2) {
@@ -32,19 +31,38 @@ int main(int argc, char const *argv[]) {
     auto projects = std::vector<std::unique_ptr<Project>>();
     for (const auto& entry : std::filesystem::directory_iterator(dirPath)) {
         if (!entry.is_regular_file()) continue;
+        if (entry.path().extension() == ".png") continue;
 
         auto file = std::ifstream(entry.path());
         if (!file.is_open()) continue;
 
         std::string line;
         while (std::getline(file, line)) {
-            if (entry.path().filename() == "local") {
-                projects.push_back(std::make_unique<LocalProject>(line));
-            } else {
-                projects.push_back(std::make_unique<RemoteProject>(line));
-            }
+            projects.push_back(Project::create(entry.path().filename(), line));
         }
     }
+
+    auto items = boost::json::array();
+    int i = 0;
+    for (const auto& project : projects) {
+        if (project->isMatched(keywords)) {
+            auto item = boost::json::object();
+            item["uid"] = std::format("{}", i);
+            item["title"] = project->projectName;
+            item["subtitle"] = std::format("open <{}> in <{}>", project->projectName, project->serverName);
+            item["arg"] = project->path;
+            auto icon = boost::json::object();
+            icon["path"] = std::format("{}/{}", dirPath.string(), "vscode_icon.png");
+            item["icon"] = icon;
+
+            items.push_back(item);
+        }
+    }
+
+    auto item = boost::json::object();
+    item["items"] = items;
+
+    std::cout << boost::json::serialize(item) << std::endl;
 
     return 0;
 }
